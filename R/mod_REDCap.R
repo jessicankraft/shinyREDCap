@@ -657,7 +657,7 @@ redcap_server <- function(id, subject_id) {
       
       observeEvent(redcap_setup$rc_con, {
         message('Retrieving REDCap project information')
-        if (redcap_setup$rc_con %>% class() == 'redcapApiConnection') { ### When correct information is entered, the class of rc_con will be redcapApiConnection
+      if (inherits(redcap_setup$rc_con, "redcapApiConnection")) { ### When correct information is entered, the class of rc_con will be redcapApiConnection
           shinyjs::hide('redcap_connect_div') ### Hide REDCap connection GUI
           redcap_setup$rc_project_info <- redcapAPI::exportProjectInformation(redcap_setup$rc_con) %>% dplyr::as_tibble() ### Store Project Info
           redcap_setup$rc_field_names <- redcapAPI::exportFieldNames(redcap_setup$rc_con) %>% dplyr::as_tibble() ### Store REDCap Field Names
