@@ -1240,13 +1240,12 @@ redcap_instrument$previous_data <- tmp
         shinyjs::disable(redcap_setup$identifier_field)
         shinyjs::disable(redcap_setup$reviewer_field)
         req(redcap_instrument$data)
-       redcap_instrument$current_subject_data <- redcap_instrument$selected_instrument_meta %>%
+      redcap_instrument$current_subject_data <- redcap_instrument$selected_instrument_meta %>%
   select(.data$shinyREDCap_widget_function, .data$field_name, .data$select_choices_or_calculations) %>% 
   add_row(field_name = redcap_setup$rc_record_id_field) %>% 
   left_join(redcap_instrument$data, by = c('field_name' = 'inputID')) %>% 
-  mutate(current_value = map_chr(.data$current_value, ~ifelse(is.list(.x), paste(.x, collapse=','), as.character(.x)))) %>%  # ← REPLACE THIS LINE
+  mutate(current_value = map_chr(.data$current_value, ~ifelse(is.list(.x), paste(.x, collapse=','), as.character(.x)))) %>%
   separate_rows(.data$select_choices_or_calculations, sep = '\\|') %>% 
-  separate(.data$select_choices_or_calculations, into = c('rc_val','rc_label'), sep = ',') %>%
           ## This mutate adds additional column names to hold values for checkbox questions
           mutate(rc_label = str_trim(.data$rc_label), ## Trim
                  inputID = pmap(list(x = .data$shinyREDCap_widget_function, y = .data$field_name, z = .data$rc_val ),  function(x,y,z) case_when(str_detect(string = x, pattern = 'shinyREDCap_checkbox') ~ paste0(y, '___', z), ## Create additional column names for inputs where multiple inputs are allowed
