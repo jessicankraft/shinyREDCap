@@ -753,7 +753,6 @@ redcap_server <- function(id, subject_id) {
         selectizeInput(inputId = ns('rc_identifier_field'),
                        label = 'Which variable contains your record identifier (e.g., MRN, subject ID)?',
                        choices = redcap_setup$rc_meta_data %>%
-                         slice(-1) %>% ### Remove the REDCap Identifier Field
                          filter(.data$field_type == 'text') %>% 
                          select(.data$field_label) %>%
                          deframe(),
@@ -769,7 +768,6 @@ redcap_server <- function(id, subject_id) {
                     label = 'Which variable contains your reviewer identifier?',
                     choices = append('(Not Applicable)', 
                                      redcap_setup$rc_meta_data %>%
-                                       slice(-1) %>% ### Remove the REDCap Identifier Field
                                        filter(.data$field_type == 'text' & .data$field_label != input$rc_identifier_field ) %>% 
                                        select(.data$field_label) %>%
                                        deframe()
