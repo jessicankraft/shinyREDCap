@@ -677,8 +677,8 @@ redcap_server <- function(id, subject_id) {
                                                               TRUE ~ .data$select_choices_or_calculations %>% as.character()
                                                               )
                    ) %>% 
-            separate_rows(.data$select_choices_or_calculations, sep = '\\|') %>% 
-            separate(.data$select_choices_or_calculations, into = c('value','value_label'), sep = ',') %>% 
+          separate_rows(.data$select_choices_or_calculations, sep = '\\|') %>% 
+separate(.data$select_choices_or_calculations, into = c('value','value_label'), sep = ',') %>%
             mutate_all(str_trim) %>% 
             mutate_all(replace_na, replace = '')
           redcap_setup$rc_records <- safe_exportRecords(redcap_setup$rc_con, redcap_setup$rc_field_names)
