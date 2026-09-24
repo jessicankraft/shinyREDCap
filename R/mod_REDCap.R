@@ -1026,19 +1026,17 @@ redcap_server <- function(id, subject_id) {
           } else {
             'no'
             }
-        
         ### Export all project records across all instruments
-      tmp <- safe_exportRecords(
-  redcap_setup$rc_con,
-  redcap_setup$rc_field_names
-)
+       tmp <- safe_exportRecords(
+       redcap_setup$rc_con,
+       redcap_setup$rc_field_names
+     )
 
-cat("\n*** DEBUG REACHED ***\n")
-pr***(class***p))
+print(class(tmp))
 print(dim(tmp))
 
-redcap***strument$previous_data <- tmp
-``***
+redcap_instrument$previous_data <- tmp
+        
         ### All Record status
         if(redcap_setup$requires_reviewer == 'yes') {
           temp_review_status <- redcap_instrument$previous_data %>% 
