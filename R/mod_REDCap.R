@@ -1029,11 +1029,12 @@ redcap_server <- function(id, subject_id) {
         
         ### Export all project records across all instruments
        tmp <- safe_exportRecords(
-  redcap_setup$rc_con,
-  redcap_setup$rc_field_names
-)
+       redcap_setup$rc_con,
+       redcap_setup$rc_field_names
+     )
 
-str(tmp)
+print(class(tmp))
+print(dim(tmp))
 
 redcap_instrument$previous_data <- tmp
         
