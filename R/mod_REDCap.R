@@ -1244,7 +1244,7 @@ redcap_instrument$previous_data <- tmp
   select(.data$shinyREDCap_widget_function, .data$field_name, .data$select_choices_or_calculations) %>% 
   add_row(field_name = redcap_setup$rc_record_id_field) %>% 
   left_join(redcap_instrument$data, by = c('field_name' = 'inputID')) %>% 
-  mutate(current_value = map_chr(.data$current_value, ~ifelse(is.list(.x), paste(.x, collapse=','), as.character(.x)))) %>%
+  mutate(current_value = purrr::map_chr(.data$current_value, ~ifelse(is.list(.x), paste(.x, collapse=','), as.character(.x)))) %>%
   separate_rows(.data$select_choices_or_calculations, sep = '\\|') %>% 
           ## This mutate adds additional column names to hold values for checkbox questions
           mutate(rc_label = str_trim(.data$rc_label), ## Trim
