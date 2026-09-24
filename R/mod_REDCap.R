@@ -1018,6 +1018,7 @@ redcap_server <- function(id, subject_id) {
       observeEvent(c(redcap_export$is_configured, redcap_instrument$upload_status, subject_id()), {
         req(redcap_export$is_connected == 'yes', redcap_export$is_configured == 'yes')
         message('Refreshing instrument data from REDCap')
+        print(dim(redcap_instrument$previous_data))
         
         ### Determine if the instrument(s) are empty by exporting the next record id. If 1 is returned, the instrument(s) are empty.
         redcap_instrument$is_empty <- if(redcapAPI::exportNextRecordName(redcap_setup$rc_con) == 1) {
