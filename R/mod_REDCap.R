@@ -1333,13 +1333,13 @@ redcap_instrument$previous_data <- tmp
           filter(.data$Question != is.na(.data$Question)) %>% ### Remove instrument complete differences from display modal
           dplyr::mutate_at(dplyr::vars(-.data$Question), stringr::str_split, '<br>') %>% 
           mutate('Previous Value' = purrr::map(.data$`Previous Value`, 
-                                          ~purrr::keep(.x, ~ stringr::str_detect(.x, '') ) 
+                                         ~purrr::keep(.x, ~ .x != '' )
                                           ),
                  'Previous Value' = purrr::map(.data$`Previous Value`,
                                           ~glue::glue_collapse(.x, sep = '<br><br>')
                                           ),
                  'New Value' = purrr::map(.data$`New Value`, 
-                                          ~purrr::keep(.x, ~ stringr::str_detect(.x, '') ) 
+                                         ~purrr::keep(.x, ~ .x != '' )
                                           ),
                  'New Value' = purrr::map(.data$`New Value`,
                                           ~glue::glue_collapse(.x, sep = '<br><br>')
